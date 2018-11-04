@@ -1,0 +1,8 @@
+node_modules/
+temp/
+
+# webpack dist dir
+web/dist/
+
+# temp folder for deploying to gh-pages
+gh-pages/

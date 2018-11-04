@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+
+<head>
+  <style>
+    body {
+      font-size: 10pt;
+    }
+
+    .margin-small {
+      margin: 2px;
+    }
+
+    .padding-small {
+      padding: 2px;
+    }
+
+    .checkbox-highlighter {
+      padding: 2px;
+      border: solid 1px lightgrey;
+    }
+  </style>
+</head>
+
+<body class="harBody">
+
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+  <div>
+    Syntax Highlighter doesn't actually highlight correctly for minified resources. This may be the reason it's
+    'faster' than other highlighters.
+  </div>
+
+  <div class="margin-small padding-small">
+    <select id="resources"></select>
+    Max resource size (bytes): <input id="max-resource-size" value="0" size="6">
+  </div>
+
+  <div id="highlighters" class="margin-small padding-small"></div>
+
+  <div class="margin-small padding-small">
+    <button data-type="run-test">Single resource test, all selected highlighters</button>
+    <button data-type="run-all-tests">All resources test, all selected highlighters</button>
+  </div>
+
+  <div id="results" class="margin-small padding-small"></div>
+
+  <iframe src="iframe.html" style="width: 100%; height: 600px;"></iframe>
+
+  <script src="dist/common.bundle.js"></script>
+  <script src="dist/main.bundle.js"></script>
+
+</body>
+
+</html>

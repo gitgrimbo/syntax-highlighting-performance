@@ -1,0 +1,38 @@
+{
+  "name": "syntax-highlighting-performance",
+  "version": "1.0.0",
+  "dependencies": {
+    "@babel/polyfill": "^7.0.0",
+    "filesize": "^3.6.1",
+    "whatwg-fetch": "^2.0.4"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.1.2",
+    "@babel/preset-env": "^7.1.0",
+    "babel-loader": "^8.0.4",
+    "shelljs": "^0.8.2",
+    "webpack": "^4.24.0",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.10"
+  },
+  "scripts": {
+    "deploy": "node deploy.js",
+    "start": "webpack-dev-server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": {
+    "name": "Paul Grime",
+    "email": "gitgrimbo@gmail.com",
+    "url": "https://github.com/gitgrimbo"
+  },
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gitgrimbo/syntax-highlighting-performance.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gitgrimbo/syntax-highlighting-performance/issues"
+  },
+  "homepage": "https://github.com/gitgrimbo/syntax-highlighting-performance#readme",
+  "description": "Test the performance of various syntax highlighters"
+}
