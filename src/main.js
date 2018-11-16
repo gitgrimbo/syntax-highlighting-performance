@@ -1,11 +1,18 @@
 import * as filesize from "filesize";
+import * as ClipboardJS from "clipboard";
 
 import highlighters from "./highlighters";
+
+const results = [];
 
 function toNDP(value, n) {
   const [whole, fraction] = String(value).split(".");
   return whole + "." + (fraction || "0").substring(0, n);
 };
+
+function timePerThousandBytes(ms, size) {
+  return toNDP(ms / (size / 1000), 3)
+}
 
 function appendResult(container, lib, resource, requestSentTime, responseReceivedTime, timings) {
   const timingsCells = Object.keys(timings).reduce((cells, key) => {
@@ -36,7 +43,7 @@ function appendResult(container, lib, resource, requestSentTime, responseReceive
   tr.append(timingsCells.highlight);
   tr.append(`<td>${resource.url}</td>`);
   tr.append(`<td>${resource.text.length}</td>`);
-  tr.append(`<td>${toNDP((timings.highlight[1] - timings.highlight[0]) / (resource.text.length / 1000), 3)}</td>`);
+  tr.append(`<td>${timePerThousandBytes(timings.highlight[1] - timings.highlight[0], resource.text.length)}</td>`);
   $(table).find("tbody").append(tr);
 }
 
@@ -160,6 +167,16 @@ async function main() {
       const brush = getBrush(resource);
       const response = await highlight(highlighterIdx, resource, brush);
       const { requestSentTime, timings } = response;
+      results.push({
+        resource: {
+          url: resource.url,
+          size: resource.text.length,
+        },
+        highlighter: highlighter.name(),
+        brush,
+        requestSentTime,
+        timings,
+      });
       const responseReceivedTime = Date.now();
       const resultsContainer = $("#results");
       appendResult(resultsContainer, highlighter.name(), resource, requestSentTime, responseReceivedTime, timings);
@@ -173,6 +190,53 @@ async function main() {
   $("button[data-type=run-all-tests]").on("click", async function(e) {
     for (let i = 0; i < resources.length; i++) {
       await singleResourceTest(i);
+    }
+  });
+
+  const exporters = {
+    json(results) {
+      return JSON.stringify({
+        userAgent: navigator.userAgent,
+        results,
+      });
+    },
+    markdown(results) {
+      const headers = [
+        "lib",
+        "total time",
+        "HL time",
+        "res. size",
+        "HL time/1000B",
+        "resource url",
+      ];
+      return []
+        .concat(navigator.userAgent)
+        .concat("")
+        .concat(headers.join("|"))
+        .concat(headers.map(() => "---").join("|"))
+        .concat(results
+          .map((result) => {
+            return []
+              .concat([
+                result.highlighter,
+                result.timings.all[1] - result.timings.all[0],
+                result.timings.highlight[1] - result.timings.highlight[0],
+                result.resource.size,
+                timePerThousandBytes(result.timings.highlight[1] - result.timings.highlight[0], result.resource.size),
+                result.resource.url,
+              ])
+              .join("|");
+          }))
+        .join("\n");
+    },
+  };
+
+  new ClipboardJS("button[data-type=export]", {
+    text: function(trigger) {
+      const exportAs = $("select[data-type=export]").val();
+      const exporter = exporters[exportAs];
+      console.log(results);
+      return exporter ? exporter(results) : "";
     }
   });
 }
