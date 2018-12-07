@@ -1,0 +1,9 @@
+[gh-pages cc5a25b] Deploy gitgrimbo/syntax-highlighting-performance to github.com/gitgrimbo/syntax-highlighting-performance.git:gh-pages
+ Author: Deployment Bot (from Travis CI) <deploy@travis-ci.org>
+ Date: Fri Dec 7 15:21:17 2018 +0000
+ 5 files changed, 101 insertions(+)
+ create mode 100644 dist/common.bundle.js
+ create mode 100644 dist/iframe.bundle.js
+ create mode 100644 dist/main.bundle.js
+ create mode 100644 iframe.html
+ create mode 100644 index.html
