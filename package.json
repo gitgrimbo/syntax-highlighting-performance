@@ -1,6 +1,6 @@
 {
   "name": "syntax-highlighting-performance",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
     "clipboard": "^2.0.4",
@@ -22,8 +22,10 @@
   "scripts": {
     "check-highlighter-updates": "node --experimental-modules src/bin/check-for-updates.mjs",
     "build": "webpack -p --verbose",
-    "deploy": "run-s build deploy:script",
-    "deploy:script": "node deploy.js",
+    "deploy": "run-s build gh-pages:build-and-deploy",
+    "gh-pages:build-only": "node src/bin/build-deploy build-only",
+    "gh-pages:deploy-only": "node src/bin/build-deploy deploy-only",
+    "gh-pages:build-and-deploy": "node src/bin/build-deploy build-and-deploy",
     "start": "webpack-dev-server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

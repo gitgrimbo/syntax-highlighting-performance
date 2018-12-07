@@ -1,0 +1,19 @@
+language: node_js
+node_js:
+  - "11"
+git:
+  depth: 1
+branches:
+  only:
+  - master
+cache: npm
+script: npm run gh-pages:build-only
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
+  keep-history: false
+  local-dir: gh-pages
+  target-branch: gh-pages
+  on:
+    branch: master
