@@ -1,13 +1,14 @@
 import PrismHighlighter from "./highlighters/Prism";
-import SyntaxhHighlighterHighlighter from "./highlighters/SyntaxHighlighter";
+import SyntaxHighlighterHighlighter from "./highlighters/SyntaxHighlighter";
 import HighlightJSHighlighter from "./highlighters/highlightjs";
 import RainbowHighlighter from "./highlighters/Rainbow";
+import versions from "./highlighters.json";
 
 const highlighters = [
-  new PrismHighlighter("1.15.0"),
-  new SyntaxhHighlighterHighlighter("3.0.83"),
-  new HighlightJSHighlighter("9.13.1"),
-  new RainbowHighlighter("2.1.4"),
+  new PrismHighlighter(versions.prism),
+  new SyntaxHighlighterHighlighter(versions.syntaxhighlighter),
+  new HighlightJSHighlighter(versions.highlightjs),
+  new RainbowHighlighter(versions.rainbow),
 ];
 
 export default highlighters;
